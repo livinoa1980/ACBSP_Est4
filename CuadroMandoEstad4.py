@@ -12,13 +12,8 @@ import plotly.express as px
 import matplotlib.pyplot as plt
 
 
-# Cargar el archivo de Excel
-file_path = r"C:\Users\Lenovo\OneDrive\Documentos\Docencia\_UIDE\ACBSP\Base medición - Estándar 4.xlsx"
-df = pd.read_excel(file_path, sheet_name='base')
-
-
 # Cargar datos actualizados
-file_path = r"C:\Users\Lenovo\OneDrive\Documentos\Docencia\_UIDE\ACBSP/Base medición - Estándar 4.xlsx"
+file_path = r"\Base medición - Estándar 4.xlsx"
 df = pd.read_excel(file_path, sheet_name='base')
 
 # Renombrar columnas correctamente
@@ -54,9 +49,9 @@ st.set_page_config(page_title="Cuadro de Mando", layout="wide")
 # Mostrar los logos en la parte superior
 col1, col2, col3 = st.columns([1, 6, 1])
 with col1:
-    st.image(r"C:\Users\Lenovo\OneDrive\Documentos\Docencia\_UIDE\ACBSP\image1.jpg", width=100)
+    st.image(r"\image1.jpg", width=100)
 with col3:
-    st.image(r"C:\Users\Lenovo\OneDrive\Documentos\Docencia\_UIDE\ACBSP\image2.png", width=100)
+    st.image(r"\image2.png", width=100)
 
 st.title("📊 Cuadro de Mando - Evaluación")
 
