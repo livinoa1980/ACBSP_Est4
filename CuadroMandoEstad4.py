@@ -11,46 +11,6 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import matplotlib.pyplot as plt
-
-# 📌 Mover esta línea al principio del código, antes de cualquier otro elemento de Streamlit
-st.set_page_config(page_title="Cuadro de Mando", layout="wide")
-
-# Diccionario con credenciales (usuario: contraseña)
-USUARIOS = {
-    "admin": "1234",
-    "usuario1": "clave1",
-    "usuario2": "clave2"
-}
-
-st.title("Inicio de Sesión")
-
-usuario = st.text_input("Usuario")
-clave = st.text_input("Contraseña", type="password")
-
-# Inicializar variables de estado
-if "autenticado" not in st.session_state:
-    st.session_state["autenticado"] = False
-
-if "error" not in st.session_state:
-    st.session_state["error"] = False
-
-# Verificar credenciales
-if st.button("Iniciar sesión"):
-    if usuario in USUARIOS and USUARIOS[usuario] == clave:
-        st.session_state["autenticado"] = True
-        st.session_state["error"] = False
-        st.success(f"Bienvenido, {usuario} 🎉")
-    else:
-        st.session_state["autenticado"] = False
-        st.session_state["error"] = True
-
-# Mostrar mensaje de error si la autenticación falla
-if st.session_state["error"]:
-    st.error("❌ Usuario o contraseña incorrectos. Inténtalo de nuevo.")
-
-# Mostrar la aplicación solo si el usuario está autenticado
-if st.session_state["autenticado"]:
-    st.write("✅ ¡Acceso concedido! Aquí va tu aplicación.")
     
 # Cargar datos actualizados
 file_path = "Base medición - Estándar 4.xlsx"
