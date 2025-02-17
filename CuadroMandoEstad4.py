@@ -15,24 +15,42 @@ import matplotlib.pyplot as plt
 # Configurar la página de Streamlit
 st.set_page_config(page_title="Cuadro de Mando", layout="wide")
 
-# Obtener credenciales desde `secrets.toml`
-USUARIOS = st.secrets["credentials"]
+# Diccionario con credenciales (usuario: contraseña)
+USUARIOS = {
+    "larmijos": "0916543747@",
+    "yvasquez": "1234@",
+    "bsuser: "bs1234@"
+}
 
 st.title("Inicio de Sesión")
 
 usuario = st.text_input("Usuario")
 clave = st.text_input("Contraseña", type="password")
 
+# Inicializar variables de estado
+if "autenticado" not in st.session_state:
+    st.session_state["autenticado"] = False
+
+if "error" not in st.session_state:
+    st.session_state["error"] = False
+
+# Verificar credenciales
 if st.button("Iniciar sesión"):
     if usuario in USUARIOS and USUARIOS[usuario] == clave:
         st.session_state["autenticado"] = True
+        st.session_state["error"] = False
         st.success(f"Bienvenido, {usuario} 🎉")
     else:
-        st.error("Usuario o contraseña incorrectos.")
+        st.session_state["autenticado"] = False
+        st.session_state["error"] = True
 
-if "autenticado" in st.session_state and st.session_state["autenticado"]:
-    st.write("¡Aquí va tu aplicación después de la autenticación!")
+# Mostrar mensaje de error si la autenticación falla
+if st.session_state["error"]:
+    st.error("❌ Usuario o contraseña incorrectos. Inténtalo de nuevo.")
 
+# Mostrar la aplicación solo si el usuario está autenticado
+if st.session_state["autenticado"]:
+    st.write("✅ ¡Acceso concedido! Aquí va tu aplicación.")
     
 # Cargar datos actualizados
 file_path = "Base medición - Estándar 4.xlsx"
