@@ -12,6 +12,44 @@ import pandas as pd
 import plotly.express as px
 import matplotlib.pyplot as plt
 
+# Diccionario con credenciales (usuario: contraseña)
+USUARIOS = {
+    "larmijos": "0916543747@",
+    "yvasquez": "1234@",
+    "usuario2": "1234@"
+}
+
+st.title("Inicio de Sesión")
+
+# Inputs para usuario y contraseña
+usuario = st.text_input("Usuario")
+clave = st.text_input("Contraseña", type="password")
+
+# Inicializar estado de autenticación y error si no existen
+if "autenticado" not in st.session_state:
+    st.session_state["autenticado"] = False
+
+if "error" not in st.session_state:
+    st.session_state["error"] = False
+
+# Verificar credenciales
+if st.button("Iniciar sesión"):
+    if usuario in USUARIOS and USUARIOS[usuario] == clave:
+        st.session_state["autenticado"] = True
+        st.session_state["error"] = False  # Restablecer error si la autenticación es correcta
+        st.success(f"Bienvenido, {usuario} 🎉")
+    else:
+        st.session_state["autenticado"] = False
+        st.session_state["error"] = True  # Activar error si falla la autenticación
+
+# Mostrar mensaje de error persistente si la autenticación falla
+if st.session_state["error"]:
+    st.error("❌ Usuario o contraseña incorrectos. Inténtalo de nuevo.")
+
+# Mostrar la app solo si está autenticado
+if st.session_state["autenticado"]:
+    st.write("✅ ¡Acceso concedido! Aquí va tu aplicación.")
+
 # Cargar datos actualizados
 file_path = "Base medición - Estándar 4.xlsx"
 df = pd.read_excel(file_path, sheet_name='base')
