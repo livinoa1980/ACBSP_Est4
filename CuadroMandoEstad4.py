@@ -11,6 +11,25 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import matplotlib.pyplot as plt
+
+# Obtener credenciales desde `secrets.toml`
+USUARIOS = st.secrets["credentials"]
+
+st.title("Inicio de Sesión")
+
+usuario = st.text_input("Usuario")
+clave = st.text_input("Contraseña", type="password")
+
+if st.button("Iniciar sesión"):
+    if usuario in USUARIOS and USUARIOS[usuario] == clave:
+        st.session_state["autenticado"] = True
+        st.success(f"Bienvenido, {usuario} 🎉")
+    else:
+        st.error("Usuario o contraseña incorrectos.")
+
+if "autenticado" in st.session_state and st.session_state["autenticado"]:
+    st.write("¡Aquí va tu aplicación después de la autenticación!")
+
     
 # Cargar datos actualizados
 file_path = "Base medición - Estándar 4.xlsx"
