@@ -12,6 +12,9 @@ import pandas as pd
 import plotly.express as px
 import matplotlib.pyplot as plt
 
+# ✅ Configurar la página como PRIMERA línea del script
+st.set_page_config(page_title="Cuadro de Mando", layout="wide")
+
 # Diccionario con credenciales (usuario: contraseña)
 USUARIOS = {
     "larmijos": "0916543747@",
