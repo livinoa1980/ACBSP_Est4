@@ -12,6 +12,9 @@ import pandas as pd
 import plotly.express as px
 import matplotlib.pyplot as plt
 
+# Configurar la página de Streamlit
+st.set_page_config(page_title="Cuadro de Mando", layout="wide")
+
 # Obtener credenciales desde `secrets.toml`
 USUARIOS = st.secrets["credentials"]
 
@@ -62,8 +65,6 @@ df_expanded["Categoría Resultados"] = pd.cut(
     labels=["Deficiente", "Aceptable", "Excelente"]
 )
 
-# Configurar la página de Streamlit
-st.set_page_config(page_title="Cuadro de Mando", layout="wide")
 
 # Mostrar los logos en la parte superior
 col1, col2, col3 = st.columns([1, 6, 1])
