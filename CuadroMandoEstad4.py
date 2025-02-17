@@ -22,35 +22,40 @@ USUARIOS = {
     "bsuser": "bs1234@"
 }
 
-st.title("Inicio de Sesión")
 
-usuario = st.text_input("Usuario")
-clave = st.text_input("Contraseña", type="password")
-
-# Inicializar variables de estado
+# Inicializar el estado de sesión si no está definido
 if "autenticado" not in st.session_state:
     st.session_state["autenticado"] = False
 
 if "error" not in st.session_state:
     st.session_state["error"] = False
 
-# Verificar credenciales
-if st.button("Iniciar sesión"):
-    if usuario in USUARIOS and USUARIOS[usuario] == clave:
-        st.session_state["autenticado"] = True
-        st.session_state["error"] = False
-        st.success(f"Bienvenido, {usuario} 🎉")
-    else:
-        st.session_state["autenticado"] = False
-        st.session_state["error"] = True
+# Bloque de autenticación
+if not st.session_state["autenticado"]:
+    st.title("Inicio de Sesión")
 
-# Mostrar mensaje de error si la autenticación falla
-if st.session_state["error"]:
-    st.error("❌ Usuario o contraseña incorrectos. Inténtalo de nuevo.")
+    usuario = st.text_input("Usuario")
+    clave = st.text_input("Contraseña", type="password")
 
-# Mostrar la aplicación solo si el usuario está autenticado
-if st.session_state["autenticado"]:
-    st.write("✅ ¡Acceso concedido! Aquí va tu aplicación.")
+    if st.button("Iniciar sesión"):
+        if usuario in USUARIOS and USUARIOS[usuario] == clave:
+            st.session_state["autenticado"] = True
+            st.session_state["error"] = False
+            st.success(f"Bienvenido, {usuario} 🎉")
+            st.rerun()  # 🔄 Refrescar la app después de la autenticación exitosa
+        else:
+            st.session_state["error"] = True
+
+    if st.session_state["error"]:
+        st.error("❌ Usuario o contraseña incorrectos. Inténtalo de nuevo.")
+
+    # Detener la ejecución si no está autenticado
+    st.stop()
+
+# Si la autenticación fue exitosa, mostrar la aplicación
+st.title("Cuadro de Mando")
+st.write("✅ ¡Acceso concedido! Aquí va tu aplicación.")
+
     
 # Cargar datos actualizados
 file_path = "Base medición - Estándar 4.xlsx"
