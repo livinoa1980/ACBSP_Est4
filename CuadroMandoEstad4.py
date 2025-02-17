@@ -62,9 +62,16 @@ if st.session_state["menu_seleccionado"] is None:
         "Tasa de becas estudiantiles"
     ]
     seleccion = st.radio("Selecciona una opción", opciones_menu)
-    if st.button("Ingresar"):
-        st.session_state["menu_seleccionado"] = seleccion
-        st.rerun()
+    col1, col2 = st.columns(2)
+    with col1:
+        if st.button("Ingresar"):
+            st.session_state["menu_seleccionado"] = seleccion
+            st.rerun()
+    with col2:
+        if st.button("Salir"):
+            st.session_state["autenticado"] = False
+            st.session_state["menu_seleccionado"] = None
+            st.rerun()
     st.stop()
 
 # Si selecciona "Cumplimiento de competencias", se carga el cuadro de mando
@@ -120,12 +127,8 @@ if st.session_state["menu_seleccionado"] == "Cumplimiento de competencias":
     # Contar el número de casos por categoría de resultados y medición
     df_grouped = df_filtrado.groupby(["Medición", "Categoría Resultados"]).size().reset_index(name="Cuenta de Resultados")
     
-    # Colores basados en la presentación
-    colores = {"Deficiente": "#FF5733", "Aceptable": "#FFC300", "Excelente": "#2ECC71"}
-    
     # Crear gráfico de barras con etiquetas mostrando evolución histórica
     fig = px.bar(df_grouped, x="Medición", y="Cuenta de Resultados", color="Categoría Resultados",
-                 color_discrete_map=colores, labels={"Cuenta de Resultados": "Número de Casos"}, 
                  title="Evolución de Resultados por Medición", text="Cuenta de Resultados", barmode="group")
     fig.update_traces(textposition='outside')
     
