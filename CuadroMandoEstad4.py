@@ -19,7 +19,7 @@ st.set_page_config(page_title="Cuadro de Mando", layout="wide")
 USUARIOS = {
     "larmijos": "0916543747@",
     "yvasquez": "1234@",
-    "bsuser: "bs1234@"
+    "bsuser: "bs1234"
 }
 
 st.title("Inicio de Sesión")
