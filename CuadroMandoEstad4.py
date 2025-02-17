@@ -6,13 +6,14 @@ Created on Fri Feb 14 11:54:41 2025
 
 Cuadro de mando integral - Estándar4 de ACBSP
 """
+import os
 import streamlit as st
 import pandas as pd
 import plotly.express as px
 import matplotlib.pyplot as plt
 
 # Cargar datos actualizados
-file_path = os.path.join(os.getcwd(), "Base medición - Estándar 4.xlsx")
+file_path = "Base medición - Estándar 4.xlsx"
 df = pd.read_excel(file_path, sheet_name='base')
 
 # Renombrar columnas correctamente
@@ -48,9 +49,9 @@ st.set_page_config(page_title="Cuadro de Mando", layout="wide")
 # Mostrar los logos en la parte superior
 col1, col2, col3 = st.columns([1, 6, 1])
 with col1:
-    st.image(r"\image1.jpg", width=100)
+    st.image("image1.jpg", width=100)
 with col3:
-    st.image(r"\image2.png", width=100)
+    st.image("image2.png", width=100)
 
 st.title("📊 Cuadro de Mando - Evaluación")
 
