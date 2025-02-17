@@ -11,7 +11,6 @@ import pandas as pd
 import plotly.express as px
 import matplotlib.pyplot as plt
 
-
 # Cargar datos actualizados
 file_path = r"\Base medición - Estándar 4.xlsx"
 df = pd.read_excel(file_path, sheet_name='base')
